@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="160790" started-at="2020-10-18T12:15:31Z" finished-at="2020-10-18T12:18:12Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="160790" started-at="2020-10-18T12:15:31Z" finished-at="2020-10-18T12:18:12Z">
+      <class name="TestCases.Amazon">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:TestCases.Amazon@49fc609f]" name="setUp" is-config="true" duration-ms="27236" started-at="2020-10-18T17:45:31Z" finished-at="2020-10-18T17:45:58Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="beforeMethod(java.lang.reflect.Method)[pri:0, instance:TestCases.Amazon@49fc609f]" name="beforeMethod" is-config="true" duration-ms="567" started-at="2020-10-18T17:45:58Z" finished-at="2020-10-18T17:45:59Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void TestCases.Amazon.test() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="test()[pri:0, instance:TestCases.Amazon@49fc609f]" name="test" duration-ms="132259" started-at="2020-10-18T17:45:59Z" finished-at="2020-10-18T17:48:11Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+        <test-method status="PASS" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:TestCases.Amazon@49fc609f]" name="afterMethod" is-config="true" duration-ms="700" started-at="2020-10-18T17:48:11Z" finished-at="2020-10-18T17:48:12Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=test status=SUCCESS method=Amazon.test()[pri:0, instance:TestCases.Amazon@49fc609f] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="afterSuite()[pri:0, instance:TestCases.Amazon@49fc609f]" name="afterSuite" is-config="true" duration-ms="107" started-at="2020-10-18T17:48:12Z" finished-at="2020-10-18T17:48:12Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterSuite -->
+      </class> <!-- TestCases.Amazon -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
