@@ -81,13 +81,13 @@ public class NativeDriver{
 			//get control of UI element
 			webEle = getControl(ctrlName);
 			webEle.click();
-			ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addScreenCapture(NativeDriver.capture(driver, "TouchSuccess")));
-			ExtentTestManager.getTest().log(LogStatus.PASS, "Touch for the element ---"+ctrlName+" Success");
+			ExtentReportManager.getTest().log(LogStatus.INFO, ExtentReportManager.getTest().addScreenCapture(NativeDriver.capture(driver, "TouchSuccess")));
+			ExtentReportManager.getTest().log(LogStatus.PASS, "Touch for the element ---"+ctrlName+" Success");
 			
 			logger.info("touch - " + ctrlName+ " - Successfull");
 		} catch (Exception e) {
-			ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addScreenCapture(NativeDriver.capture(driver, "TouchFailure")));
-			ExtentTestManager.getTest().log(LogStatus.FAIL, "Touch for the element ---"+ctrlName+" failuer");
+			ExtentReportManager.getTest().log(LogStatus.INFO, ExtentReportManager.getTest().addScreenCapture(NativeDriver.capture(driver, "TouchFailure")));
+			ExtentReportManager.getTest().log(LogStatus.FAIL, "Touch for the element ---"+ctrlName+" failuer");
 			logger.error("touch - " + ctrlName + " - Failed");
 			throwError("Invalid control type:" + ctrlName);
 		}
@@ -99,15 +99,15 @@ public class NativeDriver{
 							webEle = getControl(ctrlName);
 							webEle.clear();
 							webEle.sendKeys(value);
-							ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addScreenCapture(NativeDriver.capture(driver, "EntetTest success")));
-							ExtentTestManager.getTest().log(LogStatus.PASS, "entertext for the element ---"+ctrlName+" Success");
+							ExtentReportManager.getTest().log(LogStatus.INFO, ExtentReportManager.getTest().addScreenCapture(NativeDriver.capture(driver, "EntetTest success")));
+							ExtentReportManager.getTest().log(LogStatus.PASS, "entertext for the element ---"+ctrlName+" Success");
 							logger.info("enterText - in: " + ctrlName
 									+ " value: " + value + " - Successfull");
 							
 							
 						} catch (ClassCastException e) {
-							ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addScreenCapture(NativeDriver.capture(driver, "EntetTest failure")));
-							ExtentTestManager.getTest().log(LogStatus.FAIL, "entertext for the element ---"+ctrlName+" failure");
+							ExtentReportManager.getTest().log(LogStatus.INFO, ExtentReportManager.getTest().addScreenCapture(NativeDriver.capture(driver, "EntetTest failure")));
+							ExtentReportManager.getTest().log(LogStatus.FAIL, "entertext for the element ---"+ctrlName+" failure");
 							logger.error("enterText - in: " + ctrlName
 									+ " value: " + value + " - Failed");
 							throwError("Invalid control type: %s", ctrlName);
@@ -126,15 +126,15 @@ public class NativeDriver{
 							
 							value = driver.findElement(By.xpath(xpath))
 									.getText();
-							ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addScreenCapture(NativeDriver.capture(driver, "element get success")));
-							ExtentTestManager.getTest().log(LogStatus.PASS, "element get for the element ---"+ctrlName+" success");
+							ExtentReportManager.getTest().log(LogStatus.INFO, ExtentReportManager.getTest().addScreenCapture(NativeDriver.capture(driver, "element get success")));
+							ExtentReportManager.getTest().log(LogStatus.PASS, "element get for the element ---"+ctrlName+" success");
 							logger.info("elementGetText -" + ctrlName
 									+ " - Successfull");
 							
 
 						} catch (Exception e) {
-							ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addScreenCapture(NativeDriver.capture(driver, "Element get failure")));
-							ExtentTestManager.getTest().log(LogStatus.FAIL, "element get for the element ---"+ctrlName+" failure");
+							ExtentReportManager.getTest().log(LogStatus.INFO, ExtentReportManager.getTest().addScreenCapture(NativeDriver.capture(driver, "Element get failure")));
+							ExtentReportManager.getTest().log(LogStatus.FAIL, "element get for the element ---"+ctrlName+" failure");
 							logger.error("elementGetText  : " + ctrlName
 									+ " : Failed ");
 							throwErrors("Issue while Element get Text");
@@ -148,7 +148,6 @@ public class NativeDriver{
 			Map ctrlInfo = PageControlMap.objectInfo
 					.get(ctrlName);
 			String xpath = (String) ctrlInfo.get("Id");
-			System.out.println("xpath is: "+xpath); 
 			TouchAction action=null;
 			Dimension dim= driver.manage().window().getSize();
 			Double X_start =  (dim.getHeight() * 0.8);
@@ -176,13 +175,32 @@ public class NativeDriver{
 
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
 		Date date = new Date();
+		String dest="";
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
-		String dest = System.getProperty("user.dir")
-				+ "\\Results\\HTML\\" + screenShotName
-				+ dateFormat.format(date) + ".png";
-		File destination = new File(dest);
-		FileUtils.copyFile(source, destination);
+		if(new File(System.getProperty("user.dir")+ "\\Results\\HTML\\").exists())
+		{
+			 dest = System.getProperty("user.dir")
+					+ "\\Results\\HTML\\" + screenShotName
+					+ dateFormat.format(date) + ".png";
+			File destination = new File(dest);
+			FileUtils.copyFile(source, destination);
+		}
+		else
+		{
+			File ff= new File(System.getProperty("user.dir")+ "\\Results\\HTML\\");
+			ff.mkdir();
+			if(true)
+			{
+			 dest = System.getProperty("user.dir")
+					+ "\\Results\\HTML\\" + screenShotName
+					+ dateFormat.format(date) + ".png";
+			File destination = new File(dest);
+			FileUtils.copyFile(source, destination);
+			}
+			logger.info("error in creating folder for capturing images");
+		}
+		
 
 		return dest;
 	}

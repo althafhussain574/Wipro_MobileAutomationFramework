@@ -6,24 +6,20 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobileCapabilityType;
-
 import org.apache.log4j.Logger;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-
-
+import org.testng.annotations.*;
 import org.testng.annotations.BeforeMethod;
 
 import com.relevantcodes.extentreports.LogStatus;
 
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
 import utilities.PropertyFileReader;
 
 public class BaseTestCase {
@@ -38,37 +34,36 @@ public class BaseTestCase {
 	 
 	 @BeforeMethod
 		public void beforeMethod(Method caller) {
-			ExtentTestManager.startTest(caller.getName());
-			System.out.println(caller.getName());
+			ExtentReportManager.startTest(caller.getName());
 			testname=caller.getName();
 		}
 
 		@AfterMethod
 		public void afterMethod(ITestResult result) throws IOException {
 			if (result.isSuccess()) {
-				ExtentTestManager.getTest().log(LogStatus.PASS, "Test passed");
+				ExtentReportManager.getTest().log(LogStatus.PASS, "Test passed");
 			}
 			else if (result.getStatus() == ITestResult.FAILURE) {
-				ExtentTestManager.getTest().log(LogStatus.FAIL, "Test failed");
-				ExtentTestManager.getTest().addScreenCapture("./ExtentReport/Screenshot");
+				ExtentReportManager.getTest().log(LogStatus.FAIL, "Test failed");
+				ExtentReportManager.getTest().addScreenCapture("./ExtentReport/Screenshot");
 				
 			}
 			else if (result.getStatus() == ITestResult.SKIP) {
-				ExtentTestManager.getTest().log(LogStatus.SKIP, "Test skipped");
+				ExtentReportManager.getTest().log(LogStatus.SKIP, "Test skipped");
 			}
 			
-			ExtentTestManager.endTest();
-			ExtentManager.getInstance().flush();
+			ExtentReportManager.endTest();
+			ExtentRManager.getInstance().flush();
 		}
 
 		@AfterSuite
 		public void afterSuite() {
-			ExtentManager.getInstance().flush();
+			ExtentRManager.getInstance().flush();
 		}
 
 	
 	 
-	 @BeforeClass
+	 @BeforeTest
 	 public void setUp() throws MalformedURLException
 	 {
 		 if(prop.readPropFile("platform").equalsIgnoreCase("android"))

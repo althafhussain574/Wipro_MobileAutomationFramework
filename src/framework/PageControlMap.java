@@ -38,10 +38,6 @@ public class PageControlMap {
 
 	private WebElement getControl(Map ctrlInfo) {
 		String className = null;
-		if (platform.contains("android")) {
-		} else {
-			className = (String) ctrlInfo.get("Class");
-		}
 		
 		final String parentName = (String) ctrlInfo.get("Parent");
 		if (parentName != null) {

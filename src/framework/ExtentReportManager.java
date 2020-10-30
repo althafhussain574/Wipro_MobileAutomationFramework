@@ -6,10 +6,10 @@ import java.util.Map;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 
-public class ExtentTestManager {  // new
+public class ExtentReportManager {  // new
     static Map<Integer, ExtentTest> extentTestMap = new HashMap<Integer, ExtentTest>();
     
-    private static ExtentReports extent = ExtentManager.getInstance();
+    private static ExtentReports extent = ExtentRManager.getInstance();
 
     public static synchronized ExtentTest getTest() {
         return extentTestMap.get((int) (long) (Thread.currentThread().getId()));

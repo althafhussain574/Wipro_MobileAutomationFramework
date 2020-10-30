@@ -1,15 +1,21 @@
 package TestCases;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidKeyCode;
-
+import org.testng.annotations.*;
 import org.testng.annotations.Test;
 
 import utilities.PropertyFileReader;
 import framework.BaseTestCase;
 import framework.NativeDriver;
+import Pages.*;
 
 public class Amazon extends BaseTestCase{
+	NativeDriver oND ;
+	
+	@BeforeTest 
+	public void startDriver() 
+	{
+		oND= new NativeDriver(driver);
+	}
 	
 	PropertyFileReader prop = new PropertyFileReader();
 
@@ -18,30 +24,19 @@ public class Amazon extends BaseTestCase{
 	{
 		try
 		{
-			NativeDriver oND = new NativeDriver(driver);
+			oND= new NativeDriver(driver);
 			oND.setPage("HomePage");
 			oND.wait("HW");
-			oND.touch("signin");
-			oND.enterText("email", prop.readPropFile("email"));
-			oND.touch("continue");
-			oND.enterText("password",prop.readPropFile("password"));
-			oND.touch("login");
-			oND.wait("SW");
+			LoginPage.Login(oND,prop.readPropFile("email"),prop.readPropFile("password"));
 			oND.setPage("SearchPage");
-			oND.enterText("search_box", prop.readPropFile("product"));
-			((AndroidDriver)driver).pressKeyCode(AndroidKeyCode.ENTER);
-			oND.wait("MW");
-			oND.touch("search_tv");
-			oND.wait("MW");
+			SearchPage.searchItem(oND,prop.readPropFile("product"));
 			String data=oND.ElementGetText("product_title");
-			System.out.println(data);
 			oND.swipeDown("add_to_cart");
 			oND.wait("HW");
 			oND.touch("add_to_cart");
 			oND.wait("MW");
-			oND.assertEqual(data,data);
+			oND.assertEqual(data,"some text");
 			oND.wait("MW");
-			driver.quit();
 		}
 		catch(Exception e)
 		{
@@ -51,4 +46,9 @@ public class Amazon extends BaseTestCase{
 		
 	}
 	
+	@AfterTest
+	public void tearDown()
+	{
+		driver.quit();
+	}
 }
