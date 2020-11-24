@@ -1,47 +1,49 @@
 package TestCases;
 
+import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.annotations.Test;
 
 import utilities.PropertyFileReader;
 import framework.BaseTestCase;
-import framework.NativeDriver;
+import framework.CommonPage;
 import Pages.*;
 
 public class Amazon extends BaseTestCase{
-	NativeDriver oND ;
+	CommonPage oND ;
 	
 	@BeforeTest 
 	public void startDriver() 
 	{
-		oND= new NativeDriver(driver);
+		oND= new CommonPage(driver);
 	}
 	
 	PropertyFileReader prop = new PropertyFileReader();
 
+	@SuppressWarnings("deprecation")
 	@Test()
 	public void test() throws Exception
 	{
 		try
 		{
-			oND= new NativeDriver(driver);
+			oND= new CommonPage(driver);
 			oND.setPage("HomePage");
-			oND.wait("HW");
+			oND.wait("MW");
 			LoginPage.Login(oND,prop.readPropFile("email"),prop.readPropFile("password"));
 			oND.setPage("SearchPage");
 			SearchPage.searchItem(oND,prop.readPropFile("product"));
-			String data=oND.ElementGetText("product_title");
-			oND.swipeDown("add_to_cart");
-			oND.wait("HW");
-			oND.touch("add_to_cart");
-			oND.wait("MW");
-			oND.assertEqual(data,"some text");
+			String actual_data=oND.elementGettext("product_title");
+			CartPage.product_cart(oND);
+			String expected_data = oND.elementGettext("product_title");
+			oND.assertEqual(actual_data,expected_data);
 			oND.wait("MW");
 		}
 		catch(Exception e)
 		{
+			Assert.assertNotNull(e);
 			e.printStackTrace();
 			driver.quit();
+			
 		}
 		
 	}

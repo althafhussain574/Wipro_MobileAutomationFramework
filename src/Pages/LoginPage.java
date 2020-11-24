@@ -1,10 +1,10 @@
 package Pages;
 
-import framework.NativeDriver;
+import framework.CommonPage;
 
 public class LoginPage {
 
-	public static void Login(NativeDriver oND,String uname,String pwd)
+	public static void Login(CommonPage oND,String uname,String pwd)
 	{
 		try
 		{

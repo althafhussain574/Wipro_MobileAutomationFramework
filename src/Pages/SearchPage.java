@@ -1,13 +1,13 @@
 package Pages;
 
-import framework.NativeDriver;
+import framework.CommonPage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidKeyCode;
 import framework.BaseTestCase;
 
 public class SearchPage extends BaseTestCase{
 
-	public static void searchItem(NativeDriver oND,String item)
+	public static void searchItem(CommonPage oND,String item)
 	{
 		try
 		{
